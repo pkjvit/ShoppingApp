@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.pkj.learn.asshopping.R
-import com.pkj.learn.asshopping.product.Product
+import com.pkj.learn.asshopping.data.Product
 
 /**
  * @author Pankaj Jangid
