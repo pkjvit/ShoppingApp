@@ -38,8 +38,24 @@ public object FakeProductsRemoteDataSource : ProductDataSource {
         PRODUCTS_SERVICE_DATA[product.id] = product
     }
 
+    override suspend fun likeProduct(productId: String, isLike: Boolean) {
+        val oldProduct = PRODUCTS_SERVICE_DATA[productId]
+        oldProduct?.let {
+            PRODUCTS_SERVICE_DATA[it.id] = oldProduct.copy(likes = if(isLike) 1 else 0)
+        }
+    }
+
+    override suspend fun offlineProduct(productId: String, isOffline: Boolean){
+        val oldProduct = PRODUCTS_SERVICE_DATA[productId]
+        oldProduct?.let {
+            PRODUCTS_SERVICE_DATA[it.id] = oldProduct.copy(likes = if(isOffline) 1 else 0)
+        }
+    }
+
     private fun addProduct(id : String, name : String, price : Float, like : Int) {
         val product = Product(id, name, price, "", like)
         PRODUCTS_SERVICE_DATA[product.id] = product
     }
+
+
 }

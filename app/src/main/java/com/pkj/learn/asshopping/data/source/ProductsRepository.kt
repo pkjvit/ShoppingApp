@@ -14,4 +14,8 @@ interface ProductsRepository {
     fun observeProducts(): LiveData<Result<List<Product>>>
 
     suspend fun getProducts(forceUpdate: Boolean) : Result<List<Product>>
+
+    suspend fun likeProduct(productId: String, isLike: Boolean)
+
+    suspend fun offlineProduct(productId: String, isOffline: Boolean)
 }

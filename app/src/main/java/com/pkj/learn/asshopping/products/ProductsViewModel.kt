@@ -21,6 +21,16 @@ class ProductsViewModel(private val productsRepository: ProductsRepository) : Vi
         return product
     }
 
+    fun likeProduct(product: Product) {
+        viewModelScope.launch {
+            productsRepository.likeProduct(product.id, !product.isLiked)
+        }
+    }
 
+    fun offlineProduct(product: Product) {
+        viewModelScope.launch {
+            productsRepository.offlineProduct(product.id, !product.isOffline)
+        }
+    }
 
 }

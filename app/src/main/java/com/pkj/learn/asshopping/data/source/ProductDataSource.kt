@@ -14,4 +14,8 @@ interface ProductDataSource {
     suspend fun getProducts() : Result<List<Product>>
 
     suspend fun saveProduct(product: Product)
+
+    suspend fun likeProduct(productId: String, isLike: Boolean)
+
+    suspend fun offlineProduct(productId: String, isOffline: Boolean)
 }

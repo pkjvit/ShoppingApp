@@ -32,4 +32,12 @@ class ProductsLocalDataSource internal constructor(
     override suspend fun saveProduct(product: Product) = withContext(ioDispatcher) {
         productsDao.insertProduct(product)
     }
+
+    override suspend fun likeProduct(productId: String, isLike: Boolean) {
+        productsDao.updateProductLike(productId, if(isLike) 1 else 0)
+    }
+
+    override suspend fun offlineProduct(productId: String, isOffline: Boolean) {
+        productsDao.updateProductOffline(productId, if(isOffline) 1 else 0)
+    }
 }

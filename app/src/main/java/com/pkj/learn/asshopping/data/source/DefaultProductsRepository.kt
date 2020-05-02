@@ -23,7 +23,7 @@ class DefaultProductsRepository(
     override suspend fun getProducts(forceUpdate: Boolean): Result<List<Product>> {
         if (forceUpdate) {
             try {
-                updateTasksFromRemoteDataSource()
+                updateProductsFromRemoteDataSource()
             } catch (ex: Exception) {
                 return Result.Error(ex)
             }
@@ -31,16 +31,25 @@ class DefaultProductsRepository(
         return productsLocalDataSource.getProducts()
     }
 
+    override suspend fun likeProduct(productId: String, isLike: Boolean) {
+        productsLocalDataSource.likeProduct(productId, isLike)
+        productRemoteDataSource.likeProduct(productId, isLike)
+    }
 
-    private suspend fun updateTasksFromRemoteDataSource() {
+    override suspend fun offlineProduct(productId: String, isOffline: Boolean) {
+        productsLocalDataSource.offlineProduct(productId, isOffline)
+        productRemoteDataSource.offlineProduct(productId, isOffline)
+    }
+
+
+    private suspend fun updateProductsFromRemoteDataSource() {
         val remoteProducts = productRemoteDataSource.getProducts()
 
-        if (remoteProducts is Result.Success) {
-            remoteProducts.data.forEach { product ->
+        when(remoteProducts){
+            is Result.Success -> remoteProducts.data.forEach { product ->
                 productsLocalDataSource.saveProduct(product)
             }
-        } else if (remoteProducts is Result.Error) {
-            throw remoteProducts.exception
+            is Result.Error -> remoteProducts.exception
         }
     }
 }
