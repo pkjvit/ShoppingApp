@@ -21,6 +21,30 @@ class ProductsLocalDataSource internal constructor(
         return productsDao.observeProducts().map { Result.Success(it) }
     }
 
+    override fun observeProduct(productId: String): LiveData<Result<Product>> {
+        return productsDao.observeProductById(productId).map { Result.Success(it) }
+    }
+
+    override suspend fun getProduct(productId: String): Result<Product>  = withContext(ioDispatcher){
+        try{
+            val product = productsDao.getProductById(productId)
+            product?.let {
+               return@withContext Result.Success(product)
+            }
+            return@withContext Result.Error(java.lang.Exception("Product not found"))
+        }catch (e: Exception){
+            return@withContext Result.Error(e)
+        }
+    }
+
+    override suspend fun observeOfflineProducts(): LiveData<Result<List<Product>>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun observeCartProducts(): LiveData<Result<List<Product>>> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override suspend fun getProducts(): Result<List<Product>> = withContext(ioDispatcher) {
         return@withContext try{
             Result.Success(productsDao.getProducts())

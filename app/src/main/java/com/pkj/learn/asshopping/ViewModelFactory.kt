@@ -6,6 +6,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
 import com.pkj.learn.asshopping.data.source.ProductsRepository
+import com.pkj.learn.asshopping.productdetail.ProductDetailViewModel
 import com.pkj.learn.asshopping.products.ProductsViewModel
 import java.lang.IllegalArgumentException
 
@@ -25,6 +26,9 @@ class ViewModelFactory constructor(
         when {
             isAssignableFrom(ProductsViewModel::class.java) ->
                 ProductsViewModel(productsRepository)
+
+            isAssignableFrom(ProductDetailViewModel::class.java) ->
+                ProductDetailViewModel(productsRepository)
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

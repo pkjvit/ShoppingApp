@@ -4,10 +4,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.pkj.learn.asshopping.R
 import com.pkj.learn.asshopping.data.Product
 
@@ -30,8 +32,10 @@ class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val nameText = itemView.findViewById<TextView>(R.id.name)
     private val likeView = itemView.findViewById<ImageButton>(R.id.like)
     private val offlineView = itemView.findViewById<ImageButton>(R.id.offline)
+    private val imageView = itemView.findViewById<ImageView>(R.id.image)
 
     fun bindTo(viewModel: ProductsViewModel, product: Product){
+        Glide.with(itemView.context).load(product.image).into(imageView)
         nameText.text = product.name;
         updateLike(product.isLiked)
         updateOffline(product.isOffline)
@@ -42,6 +46,9 @@ class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         offlineView.setOnClickListener{
             viewModel.offlineProduct(product)
             updateOffline(!product.isOffline)
+        }
+        itemView.setOnClickListener{
+            viewModel.openProduct(product.id)
         }
     }
 
