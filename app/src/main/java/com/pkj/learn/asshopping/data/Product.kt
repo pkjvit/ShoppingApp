@@ -26,4 +26,7 @@ data class Product @JvmOverloads constructor(
 
     val isOffline: Boolean
         get() = offline > 0
+
+    val priceLabel: String
+        get() = "$ "+price
 }

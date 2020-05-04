@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide
 import com.pkj.learn.asshopping.R
 import com.pkj.learn.asshopping.data.Product
 import com.pkj.learn.asshopping.util.getViewModelFactory
+import kotlinx.android.synthetic.main.product_detail_fragment.*
 import kotlinx.android.synthetic.main.product_detail_fragment.view.*
 
 class ProductDetailFragment : Fragment() {
@@ -47,21 +48,12 @@ class ProductDetailFragment : Fragment() {
     }
 
     private fun updateUI(product: Product){
-        view?.findViewById<TextView>(R.id.name)?.let {
-            it.text = product.name
-        }
-        view?.findViewById<ImageView>(R.id.image)?.let{
-            Glide.with(it.context).load(product.image).into(it)
-        }
-        view?.findViewById<TextView>(R.id.details)?.let {
-            it.text = product.detail
-        }
-        view?.findViewById<TextView>(R.id.price)?.let {
-            it.text = "$ " + product.price
-        }
-        view?.findViewById<Button>(R.id.wishlist_btn)?.let{
-            it.setOnClickListener {
-            }
+        name.text = product.name
+        Glide.with(image.context).load(product.image).into(image)
+        details.text = product.detail
+        price.text = "$ " + product.price
+        wishlist_btn.setOnClickListener {
+
         }
     }
 

@@ -49,8 +49,11 @@ class ProductsFragment : Fragment() {
     }
 
     private fun setupRecyclerView(){
-        products_recycler.adapter = ProductsAdapter(viewModel)
-        products_recycler.layoutManager = GridLayoutManager(activity, 2)
+        products_recycler.apply {
+            setHasFixedSize(true)
+            adapter = ProductsAdapter(viewModel)
+            layoutManager = GridLayoutManager(activity, 2)
+        }
     }
 
     private fun setupObservers(){
