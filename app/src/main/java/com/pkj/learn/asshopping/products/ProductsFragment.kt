@@ -15,6 +15,7 @@ import com.pkj.learn.asshopping.data.Result
 import com.pkj.learn.asshopping.util.getViewModelFactory
 import kotlinx.android.synthetic.main.products_fragment.*
 
+
 class ProductsFragment : Fragment() {
 
     private val viewModel by viewModels<ProductsViewModel> { getViewModelFactory() }
