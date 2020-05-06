@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/bookmark_dest"
+        android:id="@+id/wishlist_dest"
         android:icon="@drawable/ic_bookmark_black_24dp"
         android:title="Bookmark"
         android:menuCategory="secondary"

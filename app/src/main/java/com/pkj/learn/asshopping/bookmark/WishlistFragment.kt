@@ -9,24 +9,24 @@ import android.view.ViewGroup
 import com.pkj.learn.asshopping.R
 
 
-class BookmarkFragment : Fragment() {
+class WishlistFragment : Fragment() {
 
     companion object {
-        fun newInstance() = BookmarkFragment()
+        fun newInstance() = WishlistFragment()
     }
 
-    private lateinit var viewModel: BookmarkViewModel
+    private lateinit var viewModel: WishlistViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.bookmark_fragment, container, false)
+        return inflater.inflate(R.layout.wishlist_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(BookmarkViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(WishlistViewModel::class.java)
         // TODO: Use the ViewModel
     }
 

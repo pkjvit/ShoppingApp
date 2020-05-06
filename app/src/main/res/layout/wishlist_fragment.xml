@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.pkj.learn.asshopping.bookmark.BookmarkFragment">
+    tools:context="com.pkj.learn.asshopping.bookmark.WishlistFragment">
 
     <TextView
         style="@style/TextAppearance.MaterialComponents.Headline2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="Bookmark" />
+        android:text="@string/wishlist" />
 
 </FrameLayout>
