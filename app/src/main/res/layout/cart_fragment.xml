@@ -6,8 +6,10 @@
     tools:context="com.pkj.learn.asshopping.cart.CartFragment">
 
     <TextView
+        style="@style/TextAppearance.MaterialComponents.Headline2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello" />
+        android:gravity="center"
+        android:text="Cart" />
 
 </FrameLayout>

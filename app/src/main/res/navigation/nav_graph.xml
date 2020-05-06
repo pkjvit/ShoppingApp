@@ -25,4 +25,16 @@
             android:defaultValue="Unknown"
             app:argType="string"/>
     </fragment>
+
+    <fragment
+        android:id="@+id/cart_dest"
+        android:name="com.pkj.learn.asshopping.cart.CartFragment"
+        android:label="Cart"
+        tools:layout="@layout/cart_fragment" />
+
+    <fragment
+        android:id="@+id/bookmark_dest"
+        android:name="com.pkj.learn.asshopping.bookmark.BookmarkFragment"
+        android:label="Bookmarks"
+        tools:layout="@layout/bookmark_fragment" />
 </navigation>
