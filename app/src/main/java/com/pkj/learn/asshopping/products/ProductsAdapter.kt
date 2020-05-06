@@ -3,13 +3,13 @@ package com.pkj.learn.asshopping.products
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.pkj.learn.asshopping.R
 import com.pkj.learn.asshopping.data.Product
+import kotlinx.android.synthetic.main.layout_product.view.*
 
 /**
  * @author Pankaj Jangid
@@ -27,26 +27,27 @@ class ProductsAdapter(private val viewModel: ProductsViewModel) : ListAdapter<Pr
 }
 
 class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    private val nameText = itemView.findViewById<TextView>(R.id.name)
-    private val likeView = itemView.findViewById<ImageButton>(R.id.like)
-    private val offlineView = itemView.findViewById<ImageButton>(R.id.offline)
-
     fun bindTo(viewModel: ProductsViewModel, product: Product){
-        nameText.text = product.name;
+        Glide.with(itemView.context).load(product.image).into(itemView.image)
+        itemView.name.text = product.name;
+        itemView.price.text = product.priceLabel
         updateLike(product.isLiked)
         updateOffline(product.isOffline)
-        likeView.setOnClickListener{
+        itemView.like.setOnClickListener{
             viewModel.likeProduct(product)
             updateLike(!product.isLiked)
         }
-        offlineView.setOnClickListener{
+        itemView.offline.setOnClickListener{
             viewModel.offlineProduct(product)
             updateOffline(!product.isOffline)
+        }
+        itemView.setOnClickListener{
+            viewModel.openProduct(product.id)
         }
     }
 
     private fun updateLike(isLike: Boolean){
-        likeView.setImageResource(if (isLike){
+        itemView.like.setImageResource(if (isLike){
             R.drawable.ic_favorite_24px
         }else{
             R.drawable.ic_favorite_border_24px
@@ -54,7 +55,7 @@ class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     }
 
     private fun updateOffline(isOffline: Boolean){
-        offlineView.setImageResource(if(isOffline){
+        itemView.offline.setImageResource(if(isOffline){
             R.drawable.ic_cloud_done_black_24dp
         }else{
             R.drawable.ic_cloud_download_black_24dp

@@ -26,11 +26,14 @@ interface ProductsDao {
      *
      * @return all products
      */
-    @Query("SELECT * FROM Products")
+    @Query("SELECT * FROM Products ORDER BY id")
     suspend fun getProducts(): List<Product>
 
-    @Query("SELECT * FROM Products WHERE id = :id")
-    suspend fun getProductById(id: String): Product?
+    @Query("SELECT * FROM Products WHERE id = :productId")
+    suspend fun getProductById(productId: String): Product?
+
+    @Query("SELECT * FROM products WHERE id = :productId")
+    fun observeProductById(productId: String): LiveData<Product>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertProduct(product: Product)

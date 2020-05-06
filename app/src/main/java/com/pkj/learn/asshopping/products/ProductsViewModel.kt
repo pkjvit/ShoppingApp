@@ -4,21 +4,23 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.pkj.learn.asshopping.Event
 import com.pkj.learn.asshopping.data.Product
-import com.pkj.learn.asshopping.data.Result
 import com.pkj.learn.asshopping.data.source.ProductsRepository
 import kotlinx.coroutines.launch
 
 class ProductsViewModel(private val productsRepository: ProductsRepository) : ViewModel() {
 
-    private val product = productsRepository.observeProducts()
     private val _dataLoading = MutableLiveData<Boolean>(false)
+    private val _openProductEvent = MutableLiveData<Event<String>>()
 
-    fun getProducts() : LiveData<Result<List<Product>>> {
+    val products = productsRepository.observeProducts()
+    val openProductEvent: LiveData<Event<String>> = _openProductEvent
+
+    init {
         viewModelScope.launch {
             productsRepository.getProducts(true)
         }
-        return product
     }
 
     fun likeProduct(product: Product) {
@@ -33,4 +35,7 @@ class ProductsViewModel(private val productsRepository: ProductsRepository) : Vi
         }
     }
 
+    fun openProduct(productId : String){
+        _openProductEvent.value = Event(productId)
+    }
 }

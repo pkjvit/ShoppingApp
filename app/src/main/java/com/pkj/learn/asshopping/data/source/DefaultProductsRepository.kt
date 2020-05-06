@@ -20,6 +20,33 @@ class DefaultProductsRepository(
         return productsLocalDataSource.observeProducts()
     }
 
+    override fun observeProduct(productId: String): LiveData<Result<Product>> {
+        return productsLocalDataSource.observeProduct(productId)
+    }
+
+    override suspend fun getProduct(productId: String, forceUpdate: Boolean): Result<Product> {
+        if(forceUpdate){
+            updateProductFromRemoteDataSource(productId)
+        }
+        return productsLocalDataSource.getProduct(productId)
+    }
+
+    private suspend fun updateProductFromRemoteDataSource(productId: String) {
+        val remoteProduct = productRemoteDataSource.getProduct(productId)
+
+        if(remoteProduct is Result.Success){
+            productsLocalDataSource.saveProduct(remoteProduct.data)
+        }
+    }
+
+    override suspend fun observeOfflineProducts(): LiveData<Result<List<Product>>> {
+        return productsLocalDataSource.observeOfflineProducts()
+    }
+
+    override suspend fun observeCartProducts(): LiveData<Result<List<Product>>> {
+        return productsLocalDataSource.observeCartProducts()
+    }
+
     override suspend fun getProducts(forceUpdate: Boolean): Result<List<Product>> {
         if (forceUpdate) {
             try {

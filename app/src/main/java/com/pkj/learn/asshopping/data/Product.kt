@@ -16,6 +16,7 @@ data class Product @JvmOverloads constructor(
     @ColumnInfo(name="name") var name: String,
     @ColumnInfo(name="price") val price: Float,
     @ColumnInfo(name="detail") val detail: String,
+    @ColumnInfo(name="image") val image: String,
     @ColumnInfo(name="likes") val likes: Int,
     @ColumnInfo(name="offline") val offline: Int = 0
 ){
@@ -25,4 +26,7 @@ data class Product @JvmOverloads constructor(
 
     val isOffline: Boolean
         get() = offline > 0
+
+    val priceLabel: String
+        get() = "$ $price"
 }
